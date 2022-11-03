@@ -76,6 +76,16 @@ public class ProductUnitTest1
             .NotThrow<DomainExceptionValidation>();
     }
 
+    [Fact(DisplayName = "Create Product With Null ImageName By NullReferenceException")]
+    [Trait("Product", "Create Product")]
+    public void CreateProduct_WithNullImageName_NoNullReferenceException()
+    {
+        Action action = () => new Product(1, "Product Name", "Product Description", 9.9m, 99, null);
+
+        action.Should()
+            .NotThrow<NullReferenceException>();
+    }
+
     [Fact(DisplayName = "Create Product Invalid Price Value")]
     [Trait("Product", "Create Product")]
     public void CreateProduct_InvalidPriceValue_DomainException()
