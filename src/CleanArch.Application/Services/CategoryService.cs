@@ -21,7 +21,7 @@ namespace CleanArch.Application.Services
         {
             var categories = await _categoryRepository.GetCategoriesAsync();
 
-            return MapperCategoriesDTOByEntity(categories);
+            return MapperCategoriesDTOByEntities(categories);
         }
 
         public async Task<CategoryDTO> GetById(int? id)
@@ -63,7 +63,7 @@ namespace CleanArch.Application.Services
             return _mapper.Map<CategoryDTO>(category);
         }
 
-        private IEnumerable<CategoryDTO> MapperCategoriesDTOByEntity(IEnumerable<Category?> categories)
+        private IEnumerable<CategoryDTO> MapperCategoriesDTOByEntities(IEnumerable<Category?> categories)
         {
             return _mapper.Map<IEnumerable<CategoryDTO>>(categories);
         }
