@@ -23,26 +23,26 @@ namespace CleanArch.Application.Services
         {
             var products = await _productRepository.GetProductsAsync();
 
-            return _mapper.Map<IEnumerable<ProductDTO>>(products);
+            return MapperProducsDTOByEntities(products);
         }
 
         public async Task<ProductDTO> GetProduct(int? id)
         {
             var product = await _productRepository.GetByIdAsync(id);
 
-            return _mapper.Map<ProductDTO>(product);
+            return MapperProductDTOByEntity(product);
         }
 
         public async Task<ProductDTO> GetProductCategories(int? id)
         {
             var product = await _productRepository.GetProductCategoryAsync(id);
 
-            return _mapper.Map<ProductDTO>(product);
+            return MapperProductDTOByEntity(product);
         }
 
         public async Task Add(ProductDTO productDTO)
         {
-            var product = _mapper.Map<Product>(productDTO);
+            var product = MapperProductByDTO(productDTO);
 
             if (product != null)
                 await _productRepository.CreatedAsync(product);
@@ -50,7 +50,7 @@ namespace CleanArch.Application.Services
 
         public async Task Update(ProductDTO productDTO)
         {
-            var product = _mapper.Map<Product>(productDTO);
+            var product = MapperProductByDTO(productDTO);
 
             if (product != null)
                 await _productRepository.UpdateAsync(product);
@@ -60,6 +60,21 @@ namespace CleanArch.Application.Services
         {
             var product = _productRepository.GetByIdAsync(id).Result;
             await _productRepository.RemoveAsync(product);
+        }
+
+        private Product? MapperProductByDTO(ProductDTO productDTO)
+        {
+            return _mapper.Map<Product>(productDTO);
+        }
+
+        private ProductDTO MapperProductDTOByEntity(Product? product)
+        {
+            return _mapper.Map<ProductDTO>(product);
+        }
+
+        private IEnumerable<ProductDTO> MapperProducsDTOByEntities(IEnumerable<Product?> products)
+        {
+            return _mapper.Map<IEnumerable<ProductDTO>>(products);
         }
     }
 }
