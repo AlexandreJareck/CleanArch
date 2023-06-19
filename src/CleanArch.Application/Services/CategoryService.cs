@@ -21,34 +21,51 @@ namespace CleanArch.Application.Services
         {
             var categories = await _categoryRepository.GetCategoriesAsync();
 
-            return _mapper.Map<IEnumerable<CategoryDTO>>(categories);
+            return MapperCategoriesDTOByEntity(categories);
         }
 
         public async Task<CategoryDTO> GetById(int? id)
         {
             var category = await _categoryRepository.GetByIdAsync(id);
 
-            return _mapper.Map<CategoryDTO>(category);
+            return MapperCategoryDTOByEntity(category);
         }
 
         public async Task Add(CategoryDTO categoryDTO)
         {
-            var category = _mapper.Map<Category>(categoryDTO);
+            var category = MapperCategoryByDTO(categoryDTO);
 
-            await _categoryRepository.CreatedAsync(category);
+            if (category != null)
+                await _categoryRepository.CreatedAsync(category);
         }
 
         public async Task Update(CategoryDTO categoryDTO)
         {
-            var category = _mapper.Map<Category>(categoryDTO);
+            var category = MapperCategoryByDTO(categoryDTO);
 
-            await _categoryRepository.UpdateAsync(category);
+            if (category != null)
+                await _categoryRepository.UpdateAsync(category);
         }
 
         public async Task Remove(int id)
         {
             var category = _categoryRepository.GetByIdAsync(id).Result;
             await _categoryRepository.RemoveAsync(category);
+        }
+
+        private Category? MapperCategoryByDTO(CategoryDTO categoryDTO)
+        {
+            return _mapper.Map<Category>(categoryDTO);
+        }
+
+        private CategoryDTO MapperCategoryDTOByEntity(Category? category)
+        {
+            return _mapper.Map<CategoryDTO>(category);
+        }
+
+        private IEnumerable<CategoryDTO> MapperCategoriesDTOByEntity(IEnumerable<Category?> categories)
+        {
+            return _mapper.Map<IEnumerable<CategoryDTO>>(categories);
         }
     }
 }
