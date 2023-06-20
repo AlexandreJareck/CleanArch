@@ -33,26 +33,12 @@ namespace CleanArch.Application.Services
 
         public async Task<ProductDTO> GetProduct(int? id)
         {
-            var productByIdQuery = new GetProductByIdQuery(id.Value);
-
-            if (productByIdQuery == null)
-                throw new ApplicationException($"Entity could not be loaded.");
-
-            var result = await _mediator.Send(productByIdQuery);
-
-            return MapperProductDTOByEntity(result);
+            return await GetById(id);
         }
 
         public async Task<ProductDTO> GetProductCategories(int? id)
         {
-            var productByIdQuery = new GetProductByIdQuery(id.Value);
-
-            if (productByIdQuery == null)
-                throw new ApplicationException($"Entity could not be loaded.");
-
-            var result = await _mediator.Send(productByIdQuery);
-
-            return MapperProductDTOByEntity(result);
+            return await GetById(id);
         }
 
         public async Task Add(ProductDTO productDTO)
@@ -85,6 +71,18 @@ namespace CleanArch.Application.Services
         private IEnumerable<ProductDTO> MapperProducsDTOByEntities(IEnumerable<Product?> products)
         {
             return _mapper.Map<IEnumerable<ProductDTO>>(products);
+        }
+
+        private async Task<ProductDTO> GetById(int? id)
+        {
+            var productByIdQuery = new GetProductByIdQuery(id.Value);
+
+            if (productByIdQuery == null)
+                throw new ApplicationException($"Entity could not be loaded.");
+
+            var result = await _mediator.Send(productByIdQuery);
+
+            return MapperProductDTOByEntity(result);
         }
     }
 }
