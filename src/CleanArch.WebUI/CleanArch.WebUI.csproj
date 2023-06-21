@@ -7,6 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\images\borracha1.jpg" />
+    <None Include="wwwroot\images\caderno1.jpg" />
+    <None Include="wwwroot\images\calculadora1.jpg" />
+    <None Include="wwwroot\images\cartilha1.jpg" />
+    <None Include="wwwroot\images\catalog.png" />
+    <None Include="wwwroot\images\catalogo1.png" />
+    <None Include="wwwroot\images\estojo1.jpg" />
+    <None Include="wwwroot\images\noimage.jpg" />
+    <None Include="wwwroot\images\noimage.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CleanArch.Infra.IoC\CleanArch.Infra.IoC.csproj" />
   </ItemGroup>
 
