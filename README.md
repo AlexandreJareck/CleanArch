@@ -1,6 +1,4 @@
 # CleanArch
-Clean Arch By course Macoratti
-
 
 # General Scope:
 
