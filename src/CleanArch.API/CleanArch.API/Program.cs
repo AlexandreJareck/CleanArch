@@ -9,6 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddInfrastructureAPI(builder.Configuration);
+builder.Services.AddInfrastructureJWT(builder.Configuration);
 
 builder.Services.AddSwaggerGen();
 
